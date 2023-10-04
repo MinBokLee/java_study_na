@@ -6,8 +6,6 @@ public class StoryAssistant {
     private void startStory(){
         ClubMenu clubMenu = new ClubMenu();
         clubMenu.show();
-
-
     }
 
     public static void main(String[] args){

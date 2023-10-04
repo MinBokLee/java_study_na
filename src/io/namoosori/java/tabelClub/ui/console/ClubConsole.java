@@ -3,8 +3,9 @@ package io.namoosori.java.tabelClub.ui.console;
 import io.namoosori.java.tabelClub.entity.TravelClub;
 import io.namoosori.java.tabelClub.service.ClubService;
 import io.namoosori.java.tabelClub.service.ServiceLogicLifeCycler;
-import io.namoosori.java.tabelClub.service.logic.ClubServiceLogic;
 import io.namoosori.java.tabelClub.util.ConsoleUtil;
+
+import java.util.List;
 
 public class ClubConsole {
 
@@ -21,12 +22,12 @@ public class ClubConsole {
     public void register(){
         //
         while(true){
-            String clubName = consoleUtil.getValue("Club Name(0.Club Menu");
+            String clubName = consoleUtil.getValue("Club Name(0.Club Menu)");
             if(clubName.equals("0")){
                 return;
             }
 
-            String intro = consoleUtil.getValue("Club Intro(0.Club Menu");
+            String intro = consoleUtil.getValue("Club Intro(0.Club Menu)");
             if(intro.equals("0")){
                 return;
             }
@@ -38,21 +39,21 @@ public class ClubConsole {
     }
 
     public void findAll(){
-        TravelClub[] foundClubs = clubService.findAll();
-        if(foundClubs.length == 0){
+        List<TravelClub> foundClubs = clubService.findAll();
+        if(foundClubs.isEmpty()){
             System.out.println("Empty~");
+            return;
         }
         for(TravelClub club :foundClubs){
             System.out.println(club.toString());
         }
-
     }
 
     public void findById(){
         TravelClub foundClub = null;
 
         while(true){
-            String clubId = consoleUtil.getValue("Club id to find(0.Club Menu");
+            String clubId = consoleUtil.getValue("Club id to find(0.Club Menu)");
             if(clubId.equals("0")){
                 break;
             }
@@ -67,15 +68,15 @@ public class ClubConsole {
     }
 
     public void findByName(){
-        TravelClub[] foundClubs = null;
+        List<TravelClub> foundClubs = null;
         while(true) {
-            String clubsName = consoleUtil.getValue("Club name to find(0.Club Menu");
+            String clubsName = consoleUtil.getValue("Club name to find(0.Club Menu)");
             if (clubsName.equals("0")) {
                 break;
             }
 
         foundClubs = clubService.findByName(clubsName);
-            if(foundClubs != null && foundClubs.length != 0) {
+            if(foundClubs != null && foundClubs.isEmpty()) {
                 for (TravelClub club : foundClubs) {
                     System.out.println(club);
                 }
@@ -89,7 +90,7 @@ public class ClubConsole {
         TravelClub foundClub = null;
 
         while(true){
-            String clubId = consoleUtil.getValue("Club id to find(0.Club Menu");
+            String clubId = consoleUtil.getValue("Club id to find(0.Club Menu)");
             if(clubId.equals("0")){
                 break;
             }
@@ -127,6 +128,13 @@ public class ClubConsole {
     }
 
     public void remove(){
+        TravelClub targetClub = findOne();
 
+        String confirmStr = consoleUtil.getValue("Remove this club?(Y:yes, N:no)");
+        if(confirmStr.toLowerCase().equals("Y") || confirmStr.toLowerCase().equals("yes")){
+            System.out.println("Remove a club --> " + targetClub.getClubName());
+        }else{
+            System.out.println("Remove cancelled, your club is safe." + targetClub.getClubName());
+        }
     }
 }

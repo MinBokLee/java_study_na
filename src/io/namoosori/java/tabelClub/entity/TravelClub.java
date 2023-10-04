@@ -26,6 +26,8 @@ public class TravelClub {
         this.foundationDay = DateUtil.today();
     }
 
+    //Methods
+    //setter
     public void setClubName(String clubName) {
         if(clubName.length() < MINIMUM_NAME_LENGTH){
             System.out.println("Club name should be longer then " + MINIMUM_NAME_LENGTH);
